@@ -1,9 +1,8 @@
 package com.helpdesk.entities;
-
-import com.helpdesk.entities.enums.Priorities;
-import com.helpdesk.entities.enums.Status;
-import com.helpdesk.entities.enums.Type;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,30 +17,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Builder
-public class Ticket {
-
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int ticketId;
+    int userId;
 
-    String title;
+    String name;
 
-    Type type;
-
-    Priorities priority;
-
-    String description ;
-
-
-    Status status=Status.InProgress;
+    String password;
 
     @CreatedDate
-    private LocalDate createdAt;
+    LocalDate createdAt;
 
     @LastModifiedDate
     LocalDate updatedAt;
-
-    @OneToOne()
-    Ticket ticket;
-
 }

@@ -30,5 +30,5 @@ public class Category {
     LocalDate createdAt;
 
     @LastModifiedDate
-    LocalDate contractUpdatedAt;
+    LocalDate updatedAt;
 }

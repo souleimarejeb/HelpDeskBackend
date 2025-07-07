@@ -24,9 +24,12 @@ public class TicketController {
     public ResponseEntity<List<Ticket>> getAll() {
         return ResponseEntity.ok(ticketService.findAll());
     }
-    @PostMapping("")
-    public ResponseEntity<Ticket> create(@RequestBody Ticket payload) {
-        return ResponseEntity.ok(ticketService.create(payload));
+    @PostMapping("/{userId}")
+    public ResponseEntity<Ticket> create(
+            @RequestBody Ticket payload,
+            @PathVariable int userId
+            ) {
+        return ResponseEntity.ok(ticketService.create(payload,userId));
     }
 
     @DeleteMapping("/{id}")

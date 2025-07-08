@@ -12,6 +12,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -35,13 +36,31 @@ public class Ticket {
 
     Status status=Status.InProgress;
 
-    @CreatedDate
+
     private LocalDate createdAt;
 
-    @LastModifiedDate
+
     LocalDate updatedAt;
 
     @OneToOne()
-    Ticket ticket;
+    Category category;
+
+    @ManyToOne
+    private User user;
+
+
+
+
+    @PrePersist
+    void beforeInsert(){
+        createdAt = LocalDate.now();
+        updatedAt= LocalDate.now();
+    }
+    @PreUpdate
+    void beforeUpdate() {
+        updatedAt = LocalDate.now();
+    }
+
+
 
 }

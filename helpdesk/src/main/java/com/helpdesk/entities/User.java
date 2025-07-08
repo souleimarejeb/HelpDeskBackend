@@ -1,8 +1,5 @@
 package com.helpdesk.entities;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +8,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -26,9 +25,21 @@ public class User {
 
     String password;
 
-    @CreatedDate
     LocalDate createdAt;
 
-    @LastModifiedDate
     LocalDate updatedAt;
+
+    @OneToMany()
+    List<Ticket> tickets = new ArrayList<>();
+
+
+    @PrePersist
+    void beforeInsert(){
+        createdAt = LocalDate.now();
+        updatedAt= LocalDate.now();
+    }
+    @PreUpdate
+    void beforeUpdate() {
+        updatedAt = LocalDate.now();
+    }
 }

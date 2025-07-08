@@ -1,12 +1,14 @@
 package com.helpdesk.services;
 
 import com.helpdesk.entities.Ticket;
+import com.helpdesk.entities.User;
 import com.helpdesk.repositories.TicketRepository;
 import com.helpdesk.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +22,28 @@ public class TicketService {
         var user =userRepository.findById(userId).orElseThrow(
                ()->new RuntimeException("User not found with ID : "+userId));
 
-        return this.ticketRepository.save(payload);
+        payload.setUser(user);
+
+        var savedticket = this.ticketRepository.save(payload);
+        System.out.println("the saved ticket = "+ savedticket);
+
+        return savedticket;
+    }
+    public Ticket update (Ticket payload , int userId, int ticketId){
+        System.out.println(" ticket id = "+ticketId);
+        System.out.println("user id = "+ userId);
+
+        var user =userRepository.findById(userId).orElseThrow(
+                ()->new RuntimeException("User not found with ID : "+userId));
+        var ticket =ticketRepository.findById(ticketId).orElseThrow(
+                ()->new RuntimeException("ticket not found with ID : "+ticketId));
+//        List<User> listUser = ticket.getUser();
+//        listUser.add(user);
+//
+//        ticket.setUsers(listUser);
+        ticket.setStatus(payload.getStatus());
+
+        return this.ticketRepository.save(ticket);
     }
 
     public List<Ticket> findAll( ){

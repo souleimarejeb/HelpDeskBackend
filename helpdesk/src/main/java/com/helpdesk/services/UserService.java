@@ -22,6 +22,15 @@ public class UserService {
     public List<User> findAll( ){
         return this.userRepository.findAll();
     }
+
+
+    public User update ( User payload , int id ){
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+        user=payload;
+        return userRepository.save(user);
+
+    }
     public User findOne(int id){
 
         return this.userRepository.findById(id).orElse(null);

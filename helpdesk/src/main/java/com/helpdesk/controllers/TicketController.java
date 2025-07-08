@@ -31,6 +31,14 @@ public class TicketController {
             ) {
         return ResponseEntity.ok(ticketService.create(payload,userId));
     }
+    @PatchMapping("/{ticketId}/user/{userId}")
+    public ResponseEntity<Ticket> update(
+            @RequestBody Ticket payload,
+            @PathVariable int userId,
+            @PathVariable int ticketId
+    ) {
+        return ResponseEntity.ok(ticketService.update(payload,userId,ticketId));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Ticket> delete(@PathVariable int id) {

@@ -15,9 +15,14 @@ public class TicketController {
 
     private final TicketService ticketService;
 
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Ticket> getOne(@PathVariable int id) {
+//        return ResponseEntity.ok(ticketService.findOne(id));
+//    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Ticket> getOne(@PathVariable int id) {
-        return ResponseEntity.ok(ticketService.findOne(id));
+    public ResponseEntity<List<Ticket>> getOne(@PathVariable int id) {
+        return ResponseEntity.ok(ticketService.findAllByUser(id));
     }
 
     @GetMapping("")

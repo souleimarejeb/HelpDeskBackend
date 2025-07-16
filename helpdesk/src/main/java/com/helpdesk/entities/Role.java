@@ -1,14 +1,12 @@
 package com.helpdesk.entities;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,33 +14,30 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-public class User {
+public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int userId;
+    int id;
 
     String name;
-
-    String password;
 
     LocalDate createdAt;
 
     LocalDate updatedAt;
-
-    @OneToMany()
-    List<Ticket> tickets = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
 
     @PrePersist
     void beforeInsert(){
         createdAt = LocalDate.now();
         updatedAt= LocalDate.now();
     }
+
     @PreUpdate
     void beforeUpdate() {
         updatedAt = LocalDate.now();
     }
+
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
+
 }

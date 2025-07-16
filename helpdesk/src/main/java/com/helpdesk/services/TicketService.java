@@ -25,13 +25,10 @@ public class    TicketService {
         payload.setUser(user);
 
         var savedticket = this.ticketRepository.save(payload);
-        System.out.println("the saved ticket = "+ savedticket);
 
         return savedticket;
     }
     public Ticket update (Ticket payload , int userId, int ticketId){
-        System.out.println(" ticket id = "+ticketId);
-        System.out.println("user id = "+ userId);
 
         var user =userRepository.findById(userId).orElseThrow(
                 ()->new RuntimeException("User not found with ID : "+userId));

@@ -21,9 +21,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int categoryId;
-
     String name;
-
     String description;
 
     @CreatedDate

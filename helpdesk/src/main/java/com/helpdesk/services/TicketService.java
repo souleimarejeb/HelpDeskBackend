@@ -15,8 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class TicketService {
 
-    private final TicketRepository ticketRepository;
-    private  final UserRepository userRepository;
+private final TicketRepository ticketRepository;
+private  final UserRepository userRepository;
 
     public Ticket create (Ticket payload , int userId){
         var user =userRepository.findById(userId).orElseThrow(

@@ -27,14 +27,14 @@ public class Ticket {
 
     String title;
 
-    Type type;
+    String type;
 
-    Priorities priority;
+    String priority;
 
     String description ;
 
 
-    Status status=Status.InProgress;
+    Status status=Status.Pending;
 
 
     private LocalDate createdAt;

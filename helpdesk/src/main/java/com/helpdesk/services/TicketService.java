@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class TicketService {
+public class    TicketService {
 
 private final TicketRepository ticketRepository;
 private  final UserRepository userRepository;
@@ -25,13 +25,10 @@ private  final UserRepository userRepository;
         payload.setUser(user);
 
         var savedticket = this.ticketRepository.save(payload);
-        System.out.println("the saved ticket = "+ savedticket);
 
         return savedticket;
     }
     public Ticket update (Ticket payload , int userId, int ticketId){
-        System.out.println(" ticket id = "+ticketId);
-        System.out.println("user id = "+ userId);
 
         var user =userRepository.findById(userId).orElseThrow(
                 ()->new RuntimeException("User not found with ID : "+userId));
@@ -53,7 +50,13 @@ private  final UserRepository userRepository;
 
         return this.ticketRepository.findById(id).orElse(null);
     }
-
+    public List<Ticket> findAllByUser(int id ){
+        var user=this.userRepository.findById(id).orElse(null);
+        if(user==null ){
+           throw new RuntimeException("User not Found ");
+        }
+        return  this.ticketRepository.findTicketsByUserId(id);
+    }
     public void delete(int id ){
         var foundTicket = this.findOne(id);
         if(foundTicket!=null)
